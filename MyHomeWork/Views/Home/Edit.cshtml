@@ -1,0 +1,76 @@
+﻿@model MyHomeWork.Models.AccountBookViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_myLayout.cshtml";
+}
+<div class="container">
+    <h2>Edit</h2>
+    @using (Ajax.BeginForm(new AjaxOptions() {
+        HttpMethod = "POST",
+        Confirm = "確定要修改資料?",
+        OnSuccess = "editClass.Success",
+        OnFailure = "editClass.Failure"
+    }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.PageIndex)
+
+            <!-- 類別 -->
+            <div class="form-group">
+                <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.Categoryyy) </label>
+                <div class="col-md-10">
+                    @Html.Label("支出")
+                    @Html.RadioButtonFor(model => model.Categoryyy, 1)
+                    @Html.Label("收入")
+                    @Html.RadioButtonFor(model => model.Categoryyy, 0)
+                    @Html.ValidationMessageFor(model => model.Categoryyy, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- 金額 -->
+            <div class="form-group">
+                    <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.Amounttt) </label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Amounttt, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Amounttt, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- 日期 -->
+            <div class="form-group">
+                <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.Dateee) </label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Dateee, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Dateee, "", new { @class = "text-danger" })
+                </div>
+            </div>            
+            
+            <!-- 備註 -->
+            <div class="form-group">
+                <label class = "control-label col-md-2">@Html.DisplayNameFor(model => model.Remarkkk) </label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Remarkkk, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Remarkkk, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" class="btn btn-default" />
+                    @Html.ActionLink("返回", "Index", new { id = Model.PageIndex }, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+    }
+    <div id="myform">
+        <span class="text-danger field-validation-error" id="errorMessages"></span>
+    </div>
+</div>
+@Scripts.Render("~/bundles/jqueryvalAjax")
+@Scripts.Render("~/bundles/formValid")

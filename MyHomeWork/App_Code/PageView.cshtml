@@ -1,0 +1,32 @@
+﻿@using System.Web.Mvc;
+
+@helper PageBar(UrlHelper url,int pageIndex,int pageBarSize,int totalCount)
+{
+    <div class='black'>
+        <a href="@url.Action("Index", "Home", new { id = 1})">第一頁</a>
+        <a href="@url.Action("Index", "Home", new { id = pageIndex == 1 ? 1 : pageIndex - 1})")">上一頁</a>
+        @if (pageIndex == totalCount)
+        {
+            <a class='highlight' href="@url.Action("Index", "Home", new { id = pageIndex })">pageIndex</a>
+        }
+        else
+        {
+            var step = 1;
+            var skipCount = (pageIndex + pageBarSize) > totalCount ? totalCount + 1 : (pageIndex + pageBarSize);
+            for (var i = pageIndex; i < skipCount; i++)
+            {
+                if (step == 1)
+                {
+                    <a class='highlight' href="@url.Action("Index", "Home", new { id = i })"> @i</a>
+                }
+                else
+                {
+                    <a href="@url.Action("Index", "Home", new { id = i })">@i</a>
+                }
+                ++step;
+            }
+        }
+        <a href="@url.Action("Index", "Home", new { id = pageIndex == totalCount ? totalCount : pageIndex + 1 })"> 下一頁</a>
+        <a href="@url.Action("Index", "Home", new { id = totalCount })">最末頁</a>
+    </div>
+}

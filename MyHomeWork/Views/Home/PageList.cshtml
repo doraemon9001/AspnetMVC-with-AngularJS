@@ -1,0 +1,29 @@
+﻿@model MyHomeWork.Models.PageModel
+
+    <div class='black'>
+        <a href="@Url.Action("Index", "Home", new { id = 1})">第一頁</a>
+        <a href="@Url.Action("Index", "Home", new { id = Model.PrevIndex })">上一頁</a>
+        @if (Model.PageIndex == Model.TotalCount)
+        {
+            <a class='highlight'  href="@Url.Action("Index", "Home", new { id = Model.PageIndex })">@Model.PageIndex</a>
+        }
+        else
+        {
+            var step = 1;
+            var skipCount = (Model.PageIndex + Model.PageBarSize) > Model.TotalCount ? Model.TotalCount + 1 : (Model.PageIndex + Model.PageBarSize);
+            for (var i = Model.PageIndex; i < skipCount; i++)
+            {
+                if (step == 1)
+                {
+                    <a class='highlight' href="@Url.Action("Index", "Home", new { id = i })"> @i</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "Home", new { id = i })">@i</a>
+                }
+                ++step;
+            }
+        }
+        <a href="@Url.Action("Index", "Home", new { id = Model.NextIndex })"> 下一頁</a>
+        <a href="@Url.Action("Index", "Home", new { id = Model.TotalCount })">最末頁</a>
+    </div>

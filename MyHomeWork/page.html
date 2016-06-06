@@ -1,0 +1,7 @@
+﻿<div class='black'>
+    <a href="#" ng-click='ctrl.GetList(1)'>第一頁</a>
+    <a href="#" ng-click='ctrl.GetList(ctrl.pageInfo.prevIndex)'>上一頁</a>
+    <a ng-repeat="p in ctrl.pageInfo.pageRowArr" ng-class="{'highlight': ctrl.pageIndex === p}" href="#" ng-click="ctrl.GetList(p)">{{ p }}</a>
+    <a href="#" ng-click='ctrl.GetList(ctrl.pageInfo.nextIndex)'>下一頁</a>
+    <a href="#" ng-click='ctrl.GetList(ctrl.pageInfo.totalCount)'>最末頁</a>
+</div>
